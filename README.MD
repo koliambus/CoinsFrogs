@@ -1,0 +1,1 @@
+Pick coins, kill frogs by jumping on them
