@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
+/// <summary>
+///     <para>Event called when Player take damage</para>
+/// </summary>
 public class DamagePlayerEvent : MonoBehaviour {
 
 	public delegate void DamagePlayerAction(GameObject player);

@@ -1,20 +1,35 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///     <para>Controlles Coin lifecycle</para>
+/// </summary>
 public class Coin : MonoBehaviour {
 
 	private const int FULL_ROUND = 360;
 
+    /// <summary>
+    ///     <para>rotations per second</para>
+    /// </summary>
 	[SerializeField]
-	private float rotateSpeed = 1.0f; // rotations per second
+	private float rotateSpeed = 1.0f;
 
-	[SerializeField]
-	private float floatSpeed = 0.5f; // up and down per second
+    /// <summary>
+    ///     <para>up and down per second</para>
+    /// </summary>
+    [SerializeField]
+	private float floatSpeed = 0.5f;
 
-	[SerializeField]
-	private float movementDistance = 0.5f; // maximum distance of move up and down
+    /// <summary>
+    ///     <para>maximum distance of move up and down</para>
+    /// </summary>
+    [SerializeField]
+	private float movementDistance = 0.5f;
 
-	private float startingY;
+    /// <summary>
+    ///     <para>start floating point</para>
+    /// </summary>
+    private float startingY;
 
 	void OnTriggerEnter (Collider collider){
 		Debug.Log ("OnTriggerEnter with name = " + collider.gameObject.name + ", tag = " + collider.gameObject.tag);
@@ -23,7 +38,9 @@ public class Coin : MonoBehaviour {
 		}
 	}
 
-	// Use this for initialization
+	/// <summary>
+	///     <para>start floating and rotate</para>
+	/// </summary>
 	void Start () {
 		startingY = transform.position.y;
 		transform.Rotate (transform.up, Random.Range (0f, 360f));
@@ -31,11 +48,17 @@ public class Coin : MonoBehaviour {
 		StartCoroutine (Float ());
 	}
 
-	void Pickup ()	{
+    /// <summary>
+    ///     <para>Calls when user pick up the coin</para>
+    /// </summary>
+    void Pickup ()	{
 		GameManager.Instance.NumCoins++;
 		Destroy (gameObject);
 	}
-	
+
+    /// <summary>
+    ///     <para>Spin coroutine</para>
+    /// </summary>
 	private IEnumerator Spin(){
 		while (true) {
 			transform.Rotate (transform.up, Time.deltaTime * rotateSpeed * FULL_ROUND);
@@ -43,6 +66,10 @@ public class Coin : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    ///     <para>Float coroutine</para>
+    /// </summary>
+    /// <returns></returns>
 	private IEnumerator Float(){
 		while (true) {
 			var newY = startingY + movementDistance * Mathf.Sin (Time.realtimeSinceStartup * floatSpeed * 2 * Mathf.PI);

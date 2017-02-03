@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+///     <para>Updates UI labels, elements etc.</para>
+/// </summary>
 public class UpdateUI : MonoBehaviour {
 
 	[SerializeField]
@@ -12,7 +15,6 @@ public class UpdateUI : MonoBehaviour {
 	[SerializeField]
 	private Text healthLabel;
 
-	// Update is called once per frame
 	void Update () {
 		timerLabel.text = FormatTime(GameManager.Instance.TimeRemaining);
 		coinsLabel.text = GameManager.Instance.NumCoins.ToString ();

@@ -1,14 +1,26 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+///     <para>Enemy lifecycle controller</para>
+/// </summary>
 public class Enemy : MonoBehaviour {
 
+    /// <summary>
+    ///     <para>rotation speed to aim, in degrees per second</para>
+    /// </summary>
 	[SerializeField]
-	private float rotationSpeed = 180; // In degrees per second
+	private float rotationSpeed = 180;
 
+    /// <summary>
+    ///     <para>Movement speed to aim, in units per second</para>
+    /// </summary>
 	[SerializeField]
-	private float movementSpeed = 1f; // In units per second
+	private float movementSpeed = 1f;
 
+    /// <summary>
+    ///     <para>Minimun radius for collider triggering</para>
+    /// </summary>
 	[SerializeField]
 	private float meshRadius = 1f; // In units
 
@@ -18,8 +30,14 @@ public class Enemy : MonoBehaviour {
 	private IEnumerator turnTowardsPlayerCoroutine;
 	private IEnumerator moveTowardsPlayerCoroutine;
 
+    /// <summary>
+    ///     <para>Ignore colliding on death animation</para>
+    /// </summary>
 	private bool isDead;
 
+    /// <summary>
+    ///     <para>Starts pursuit when Player is near</para>
+    /// </summary>
 	void OnTriggerEnter(Collider collider)
 	{
 		if (collider.gameObject.CompareTag("Player") && !isDead)
@@ -37,6 +55,9 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    ///     <para>On enemy death event</para>
+    /// </summary>
 	void OnDeath(){
 		if (isDead) {
 			return;
@@ -52,6 +73,10 @@ public class Enemy : MonoBehaviour {
 		Destroy (gameObject, animationComponent["Death"].length);
 	}
 
+    /// <summary>
+    ///     <para>Stop pursuit when Player is too far</para>
+    /// </summary>
+    /// <param name="collider"></param>
 	void OnTriggerExit(Collider collider)
 	{
 		if (collider.CompareTag("Player"))
@@ -67,6 +92,10 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    ///     <para>Turning towards player</para>
+    /// </summary>
+    /// <param name="player">Player position</param>
 	private IEnumerator TurnTowardsPlayer(Transform player)
 	{
 		while (true)
@@ -80,6 +109,10 @@ public class Enemy : MonoBehaviour {
 		}
 	}
 
+    /// <summary>
+    ///     <para>Moving toward player</para>
+    /// </summary>
+    /// <param name="player">Player position</param>
 	private IEnumerator MoveTowardsPlayer(Transform player)
 	{
 		while (true)
